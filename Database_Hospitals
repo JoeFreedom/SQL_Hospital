@@ -1,0 +1,32 @@
+Use PractiseDatabase;
+
+create table table_Departments
+(
+Id int not null identity(1,1), 
+Building int not null check (Building >= 1 and Building <= 5),
+Financing money not null check (Financing > 0) default 0,
+Department_Name nvarchar(100) unique not null check(Department_Name != ''),
+primary key(Id)
+)
+
+
+create table table_Doctors
+(
+Id int not null identity(1,1), 
+Doctors_Name nvarchar(max) not null check(Doctors_Name != ''),
+Doctors_Surname nvarchar(max) not null check(Doctors_Surname != ''),
+Phone char(10),
+Salary money not null check (Salary > 0),
+primary key(Id)
+)
+
+
+create table table_Examination
+(
+Id int not null identity(1,1), 
+DayOfTheWeek int not null check (DayOfTheWeek >= 1 and DayOfTheWeek <= 7),
+EndTime time not null check(EndTime > '08:00:00'),
+Examination_Name nvarchar(100) not null check(Examination_Name != ''),
+StartTime time not null check(StartTime >= '08:00:00' and StartTime <= '18:00:00'),
+primary key(Id)
+)
