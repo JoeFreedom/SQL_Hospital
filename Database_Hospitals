@@ -30,3 +30,12 @@ Examination_Name nvarchar(100) not null check(Examination_Name != ''),
 StartTime time not null check(StartTime >= '08:00:00' and StartTime <= '18:00:00'),
 primary key(Id)
 )
+
+create table Wards 
+(
+Id int identity(1,1) not null primary key,
+Building int not null check(Building >= 1 and Building <= 5),
+[Floor] int not null check([Floor] >= 1),
+[Name] nvarchar(20) unique not null check([Name] != '')
+
+)
