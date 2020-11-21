@@ -1,0 +1,47 @@
+Use PractiseDatabase;
+
+create table TABLE_Departments
+(
+[Id_Departments] int not null identity(1,1), 
+[Building] int not null check ([Building] >= 1 and Building <= 5),
+[Department_Name] nvarchar(100) unique not null check([Department_Name] != ''),
+primary key([Id_Departments])
+)
+
+
+create table TABLE_Doctors
+(
+[Id_Doctors] int not null identity(1,1), 
+[Doctors_Name] nvarchar(max) not null check([Doctors_Name] != ''),
+[Doctors_Surname] nvarchar(max) not null check([Doctors_Surname] != ''),
+[Premium] money not null check([Premium] > 0) default 0,
+[Salary] money not null check ([Salary] > 0),
+primary key([Id_Doctors])
+)
+
+create table TABLE_DoctorsExamination
+(
+[Id_DoctorsExamination] int not null identity(1,1), 
+[EndTime] time not null check([EndTime] > '08:00:00'),
+[StartTime] time not null check([StartTime] >= '08:00:00' and [StartTime] <= '18:00:00'),
+[Doctor_Id] int not null references TABLE_Doctors([Id_Doctors]),
+[Examination_Id] int not null references TABLE_Examinations([Id_Examination]),
+[Ward_Id] int not null references TABLE_Wards([Id_Wards]),
+primary key([Id_DoctorsExamination])
+)
+
+create table TABLE_Examinations
+(
+[Id_Examination] int not null identity(1,1), 
+[Examination_Name] nvarchar(100) not null check(Examination_Name != '') unique,
+primary key([Id_Examination])
+)
+
+create table TABLE_Wards
+(
+[Id_Wards] int not null identity(1,1),
+[Ward_Name] nvarchar(20) not null check([Ward_Name] != '') unique,
+[Spaces_Available] int not null check([Spaces_Available] >= 1),
+[Department_Id] int not null references TABLE_Departments([Id_Departments]),
+primary key([Id_Wards])
+)
